@@ -1,5 +1,5 @@
 
-var globalScores, currentScore, activePlayer, playGame;
+var globalScores, currentScore, activePlayer, playGame, player0Panel, player1Panel;
 
 init();
 
@@ -16,7 +16,7 @@ document.querySelector('.btn-roll').addEventListener('click', function (){
         dice.src = 'dice-' + randomDiceNumber + '.png';
 
         // next player.
-        if (randomDiceNumber !== 1) {
+    if (randomDiceNumber !== 1) {
         currentScore += randomDiceNumber;
 
         // random dice update in UI.
@@ -41,11 +41,12 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
         document.querySelector('#score-' + activePlayer).textContent = globalScores[activePlayer];
 
         // check if player won the game.
-        if (globalScores[activePlayer] === 100 || globalScores[activePlayer] > 100) {
+    if (globalScores[activePlayer] === 20 || globalScores[activePlayer] > 20) {
         
         document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
-        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
-        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+        var playerPanel = document.querySelector('.player-' + activePlayer + '-panel');
+        playerPanel.classList.add('winner');
+        playerPanel.classList.remove('active');
 
         playGame = false;
 
@@ -66,8 +67,8 @@ function nextPlayer () {
     document.querySelector('#current-' + activePlayer).textContent = currentScore;
 
     activePlayer === 1 ? activePlayer = 0 : activePlayer = 1;
-    document.querySelector('.player-0-panel').classList.toggle('active');
-    document.querySelector('.player-1-panel').classList.toggle('active');
+    player0Panel.classList.toggle('active');
+    player1Panel.classList.toggle('active');
 };
 
 function init () {
@@ -75,6 +76,9 @@ function init () {
     currentScore = 0;
     activePlayer = 0; // zero is first player.
     playGame = true,
+    
+    player0Panel = document.querySelector('.player-0-panel');
+    player1Panel = document.querySelector('.player-1-panel');
 
     document.getElementById('score-0').textContent = 0;
     document.getElementById('score-1').textContent = 0;
@@ -85,8 +89,8 @@ function init () {
 
     document.querySelector('.dice').style.display = 'none';
 
-    document.querySelector('.player-0-panel').classList.remove('winner');
-    document.querySelector('.player-1-panel').classList.remove('winner');
-    document.querySelector('.player-0-panel').classList.add('active');
+    player0Panel.classList.remove('winner');
+    player1Panel.classList.remove('winner');
+    player0Panel.classList.add('active');
     
 }
